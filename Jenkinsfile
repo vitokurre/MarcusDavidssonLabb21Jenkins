@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/viktornilssoninfotiv/mavenfooproject.git'
+                git 'https://github.com/InfotivPeter/labb21.git'
             }
         }
         stage('junit build') {
