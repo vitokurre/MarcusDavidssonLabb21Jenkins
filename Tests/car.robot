@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Suite description
 Library     SeleniumLibrary
+Library     ChromeConfiguration.py
 
 *** Variables ***
 ${BROWSER} =  chrome
@@ -8,6 +9,10 @@ ${BROWSER} =  chrome
 
 *** Test Cases ***
 Dropdown
+    ${chrome_options}    ChromeConfiguration.Config
+    ${args}    ChromeConfiguration.Serviceargs
+    Start Virtual Display    1920    1080
+    Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]    Dropdown
     Open Browser    about:blank  ${BROWSER}
     Maximize Browser Window
@@ -24,6 +29,10 @@ Dropdown
     Close Browser
 
 Alert
+    ${chrome_options}    ChromeConfiguration.Config
+    ${args}    ChromeConfiguration.Serviceargs
+    Start Virtual Display    1920    1080
+    Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]  Alert
     Open Browser    about:blank  ${BROWSER}
     Maximize Browser Window
@@ -39,6 +48,10 @@ Alert
     Close Browser
 
 Card number
+    ${chrome_options}    ChromeConfiguration.Config
+    ${args}    ChromeConfiguration.Serviceargs
+    Start Virtual Display    1920    1080
+    Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]  Card
     Open Browser    about:blank  ${BROWSER}
     Maximize Browser Window
