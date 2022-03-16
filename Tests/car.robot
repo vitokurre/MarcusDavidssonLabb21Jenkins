@@ -11,7 +11,6 @@ ${BROWSER} =  chrome
 Dropdown
     ${chrome_options}    ChromeConfiguration.Config
     ${args}    ChromeConfiguration.Serviceargs
-    Start Virtual Display    1920    1080
     Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]    Dropdown
     Open Browser    about:blank  ${BROWSER}
@@ -31,7 +30,6 @@ Dropdown
 Alert
     ${chrome_options}    ChromeConfiguration.Config
     ${args}    ChromeConfiguration.Serviceargs
-    Start Virtual Display    1920    1080
     Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]  Alert
     Open Browser    about:blank  ${BROWSER}
@@ -50,7 +48,6 @@ Alert
 Card number
     ${chrome_options}    ChromeConfiguration.Config
     ${args}    ChromeConfiguration.Serviceargs
-    Start Virtual Display    1920    1080
     Create WebDriver    Chrome    chrome_options=${chrome_options}    service_args=${args}
     [Tags]  Card
     Open Browser    about:blank  ${BROWSER}
