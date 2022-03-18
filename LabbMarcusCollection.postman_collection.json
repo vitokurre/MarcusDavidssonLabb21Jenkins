@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "4de998e8-372b-44c2-9995-aaf9dc39776b",
+		"name": "Labb Marcus Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic Funktion",
+			"item": [
+				{
+					"name": "List Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.globals.set(\"user_id\", jsonData.data[4].id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => pm.expect(responseCode.code).to.equal(200)); \r",
+									"pm.test(\"Response time below 2 sec\", () => pm.expect(pm.response.responseTime).to.be.below(2000));\r",
+									"pm.test(\"6 items found\", () => pm.expect(jsonData.data.length).to.equal(6));\r",
+									"pm.test(\"Avatar is not null\", () => pm.expect(jsonData.data[1].avatar).to.not.equal(null));\r",
+									"pm.test(\"Last name is Wong\", () => pm.expect(jsonData.data[2].last_name).to.equal(\"Wong\"));\r",
+									"pm.test(\"Name Eve exist\", () => pm.expect(pm.response.text()).to.include(\"Eve\"));\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => pm.expect(responseCode.code).to.equal(200)); \r",
+									"pm.test(\"Response time below 2 sec\", () => pm.expect(pm.response.responseTime).to.be.below(2000));\r",
+									"pm.test(\"User id\", () => pm.expect(jsonData.data.id).to.equal(pm.globals.get(\"user_id\")));\r",
+									"pm.test(\"User first name\", () => pm.expect(jsonData.data.first_name).to.equal(\"Charles\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{user_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.globals.set(\"user_Marcus_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", () => pm.expect(responseCode.code).to.equal(201)); \r",
+									"pm.test(\"Response time below 2 sec\", () => pm.expect(pm.response.responseTime).to.be.below(2000));\r",
+									"pm.test(\"id not null\", () => pm.expect(jsonData.id).to.not.equal(null));\r",
+									"pm.test(\"createdAt not null\", () => pm.expect(jsonData.createAt).to.not.equal(null));\r",
+									"pm.test(\"Name is Marcus\", () => pm.expect(jsonData.name).to.equal(\"Marcus\"));\r",
+									"pm.test(\"Job is Pilot\", () => pm.expect(jsonData.job).to.equal(\"Pilot\"));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marcus\",\r\n    \"job\": \"Pilot\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => pm.expect(responseCode.code).to.equal(200)); \r",
+									"pm.test(\"Response time below 2 sec\", () => pm.expect(pm.response.responseTime).to.be.below(2000));\r",
+									"pm.test(\"Job is Postman Master\", () => pm.expect(jsonData.job).to.equal(\"Postman Master\"));\r",
+									"pm.test(\"UpdatedAt is not null\", () => pm.expect(jsonData.updatedAt).to.not.equal(null));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"job\": \"Postman Master\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/{{user_Marcus_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{user_Marcus_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => pm.expect(responseCode.code).to.equal(204)); \r",
+									"pm.test(\"Response time below 2 sec\", () => pm.expect(pm.response.responseTime).to.be.below(2000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{user_Marcus_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{user_Marcus_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

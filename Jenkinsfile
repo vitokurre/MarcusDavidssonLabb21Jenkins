@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/InfotivPeter/labb21.git'
+                git 'https://github.com/vitokurre/MarcusDavidssonLabb21Jenkins.git'
             }
         }
         stage('junit build') {
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('API testing with Newman') {
             steps {
-                sh 'newman run Restful_Booker_Facit.postman_collection.json --environment Restful_Booker.postman_environment.json --reporters junit –reporter-junit-export "newman/newman_report.xml"'
+                sh 'newman run LabbMarcusCollection.postman_collection.json --environment LabbMarcusEnviroments.postman_environment.json --reporters junit –reporter-junit-export "newman/newman_report.xml"'
             }
             post {
                 always {
