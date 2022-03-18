@@ -16,6 +16,11 @@ pipeline {
                 sh "mvn test"
             }
         }
+        stage('Cobertura coverage') {
+            steps {
+                sh "mvn -B cobertura:cobertura"
+                    }
+            }
         stage('Newman') {
             steps {
                 sh 'newman run LabbMarcusCollection.postman_collection.json --environment LabbMarcusEnviroments.postman_environment.json --reporters junit –reporter-junit-export "newman/newman_report.xml"'
